@@ -14,6 +14,10 @@ public class Tabuleiro {
     public static final String YELLOW = "\u001B[33m";
     public static final String RED = "\u001B[31m";
 
+    public int getTotalBarcos() {
+        return totalBarcos;
+    }
+
     public int getBarcosRestantes() {
         return barcosRestantes;
     }

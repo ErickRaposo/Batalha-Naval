@@ -6,6 +6,10 @@ abstract class Player {
         return nome;
     }
 
+    public Tabuleiro getTabuleiro() {
+        return tabuleiro;
+    }
+
     public abstract void atacar(Player inimigo);
 
     public boolean perdeu() {
@@ -16,7 +20,7 @@ abstract class Player {
         return tabuleiro.receberAtaque(pos);
     }
 
-    public abstract void colocarBarcos(int total);
+    public abstract void colocarBarcos();
 
     public Player(String nome, int tamanhoTabuleiro, int totalBarcos) {
         this.nome = nome;

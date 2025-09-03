@@ -11,7 +11,7 @@ public class Celula {
     }
 
     public void atingir() {
-        atingido = false;
+        atingido = true;
     }
 
     public boolean estaVazio() {

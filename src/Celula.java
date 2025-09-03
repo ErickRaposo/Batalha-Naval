@@ -1,6 +1,6 @@
 public class Celula {
-    private boolean temBarco=false;
-    private boolean atingido=false;
+    private boolean temBarco;
+    private boolean atingido;
 
     public boolean estaAtingido() {
         return atingido;
@@ -16,5 +16,10 @@ public class Celula {
 
     public boolean estaVazio() {
         return !temBarco;
+    }
+
+    public Celula() {
+        temBarco = false;
+        atingido = false;
     }
 }

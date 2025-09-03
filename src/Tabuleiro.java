@@ -14,6 +14,14 @@ public class Tabuleiro {
     public static final String YELLOW = "\u001B[33m";
     public static final String RED = "\u001B[31m";
 
+    public int getBarcosRestantes() {
+        return barcosRestantes;
+    }
+
+    public void setBarcosRestantes(int barcosRestantes) {
+        this.barcosRestantes = barcosRestantes;
+    }
+
     public void colocarBarco(Posicao pos) {
         grid[pos.getX()][pos.getY()].marcarBarco();
     }
@@ -36,7 +44,13 @@ public class Tabuleiro {
 
     public boolean receberAtaque(Posicao pos) {
         grid[pos.getX()][pos.getY()].atingir();
-        return !grid[pos.getX()][pos.getY()].estaVazio();
+
+        if (grid[pos.getX()][pos.getY()].estaVazio()) {
+            return false;
+        }
+
+        setBarcosRestantes(barcosRestantes--);
+        return true;
     }
 
     public boolean osBarcosEstaoAfundados() {

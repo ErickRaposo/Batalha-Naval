@@ -31,7 +31,7 @@ public class Tabuleiro {
     }
 
     public void colocarBarco(Posicao pos) {
-        grid[pos.getX()][pos.getY()].marcarBarco();
+        grid[pos.getY()][pos.getX()].marcarBarco();
     }
 
     public void colocarBarcosAleatorios() {
@@ -51,9 +51,9 @@ public class Tabuleiro {
     }
 
     public boolean receberAtaque(Posicao pos) {
-        grid[pos.getX()][pos.getY()].atingir();
+        grid[pos.getY()][pos.getX()].atingir();
 
-        if (grid[pos.getX()][pos.getY()].estaVazio()) {
+        if (grid[pos.getY()][pos.getX()].estaVazio()) {
             return false;
         }
 
@@ -88,8 +88,8 @@ public class Tabuleiro {
             return 0;
         }
 
-        if (!grid[pos.getX()][pos.getY()].estaVazio()) soma+=2;
-        if (grid[pos.getX()][pos.getY()].estaAtingido()) soma+=4;
+        if (!grid[pos.getY()][pos.getX()].estaVazio()) soma+=2;
+        if (grid[pos.getY()][pos.getX()].estaAtingido()) soma+=4;
 
         return soma;
     }

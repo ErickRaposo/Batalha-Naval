@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f7d65563-4f59-4a55-a506-c9288067d858" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Humano.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Humano.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Tabuleiro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tabuleiro.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -36,7 +35,7 @@
   "keyToString": {
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "teste",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Erick/Desktop/projetos/java/Batalha Naval",
     "onboarding.tips.debug.path": "C:/Users/Erick/Desktop/projetos/java/Batalha Naval/src/Main.java"

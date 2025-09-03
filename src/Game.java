@@ -12,25 +12,13 @@ public class Game {
         this.turno = 0;
     }
 
-    /**
-     * Método principal que inicia e controla o fluxo do jogo.
-     */
     public void start() {
         System.out.println("=== BEM-VINDO À BATALHA NAVAL ===");
-        
-        // 1. Configurar a partida com base nas escolhas do usuário
         configurarPartida();
-
-        // 2. Iniciar a fase de posicionamento dos barcos
         iniciarPosicionamento();
-
-        // 3. Iniciar a batalha (loop de turnos)
         iniciarBatalha();
     }
     
-    /**
-     * Coleta as informações iniciais: tamanho do tabuleiro, número de barcos e modo de jogo.
-     */
     private void configurarPartida() {
         int tamanhoTabuleiro = perguntarTamanhoTabuleiro();
         int quantidadeBarcos = perguntarQuantidadeBarcos(tamanhoTabuleiro);
@@ -52,36 +40,30 @@ public class Game {
         }
     }
 
-    /**
-     * Gerencia a fase em que os jogadores colocam seus barcos no tabuleiro.
-     */
     private void iniciarPosicionamento() {
         System.out.println("\n--- FASE DE POSICIONAMENTO ---");
         for (int i = 0; i < jogadores.length; i++) {
             Player jogadorAtual = jogadores[i];
             System.out.println("\n" + jogadorAtual.getNome() + ", é a sua vez de posicionar os barcos.");
             
-            // Se houver outro jogador humano esperando, peça para ele não olhar.
             if (jogadores[(i + 1) % 2] instanceof Humano) {
                 System.out.println(jogadores[(i + 1) % 2].getNome() + ", por favor, não olhe a tela!");
-                // Pausa para dar tempo do outro jogador se virar
                 try { Thread.sleep(3000); } catch (InterruptedException e) {}
             }
             
             jogadorAtual.colocarBarcos();
             
-            // Limpa a tela (simulado com linhas em branco) para o próximo jogador não ver o tabuleiro.
-            if (jogadores[(i + 1) % 2] instanceof Humano && i == 0) { // Apenas após o J1
+            if (jogadores[(i + 1) % 2] instanceof Humano && i == 0) {
                 System.out.println("\nBarcos posicionados! Pressione ENTER para limpar a tela e passar para o próximo jogador.");
-                scanner.nextLine(); // Consome o \n anterior
-                scanner.nextLine(); // Espera o Enter
+                scanner.nextLine();
+                scanner.nextLine();
                 for (int j = 0; j < 50; j++) System.out.println();
             }
         }
     }
 
     /**
-     * Inicia o loop principal de ataque até que um vencedor seja encontrado.
+     * MÉTODO ATUALIZADO com as novas regras de printagem.
      */
     private void iniciarBatalha() {
         System.out.println("\n--- O JOGO COMEÇOU! ---");
@@ -89,27 +71,35 @@ public class Game {
         while (vencedor == null) {
             Player atacante = jogadores[turno];
             Player inimigo = jogadores[(turno + 1) % 2];
+            boolean isModoPvP = jogadores[0] instanceof Humano && jogadores[1] instanceof Humano;
 
             System.out.println("\n-----------------------------------------");
             System.out.println("Turno de: " + atacante.getNome());
+
+            // Se o atacante for humano, mostra os tabuleiros para ele poder decidir.
+            if (atacante instanceof Humano) {
+                // Em PvP, não revela os barcos. Em PvC, revela.
+                boolean revelarBarcos = !isModoPvP;
+
+                // NOVA ORDEM DE PRINTAGEM
+                // 1. Printa o tabuleiro do próprio jogador primeiro.
+                System.out.println("Seu tabuleiro (" + atacante.getNome() + "):");
+                atacante.getTabuleiro().printarTabuleiro(revelarBarcos);
+
+                // 2. Printa o tabuleiro inimigo em segundo.
+                System.out.println("Tabuleiro do inimigo (" + inimigo.getNome() + "):");
+                inimigo.getTabuleiro().printarTabuleiro(false);
+            }
             
-            // Mostra o tabuleiro do inimigo (sem revelar barcos)
-            System.out.println("Tabuleiro do inimigo (" + inimigo.getNome() + "):");
-            inimigo.getTabuleiro().printarTabuleiro(false);
-
-            // Mostra o seu próprio tabuleiro (revelando seus barcos)
-            System.out.println("Seu tabuleiro (" + atacante.getNome() + "):");
-            atacante.getTabuleiro().printarTabuleiro(true);
-
+            // O ataque acontece (para o computador, só vemos a mensagem do ataque dele).
             atacante.atacar(inimigo);
+
             vencedor = checarVencedor();
             trocarTurno();
         }
         anunciarVencedor(vencedor);
     }
     
-    // --- MÉTODOS AUXILIARES DE CONFIGURAÇÃO ---
-
     private int perguntarTamanhoTabuleiro() {
         int tamanho = 0;
         while (tamanho <= 1) {
@@ -119,7 +109,7 @@ public class Game {
                 if (tamanho <= 1) System.out.println("O tamanho deve ser maior que 1.");
             } catch (InputMismatchException e) {
                 System.out.println("Entrada inválida. Por favor, digite um número.");
-                scanner.next(); // Limpa o buffer
+                scanner.next();
             }
         }
         return tamanho;
@@ -137,7 +127,7 @@ public class Game {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Entrada inválida. Por favor, digite um número.");
-                scanner.next(); // Limpa o buffer
+                scanner.next();
             }
         }
         return qtd;
@@ -157,13 +147,11 @@ public class Game {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Entrada inválida. Por favor, digite 1 ou 2.");
-                scanner.next(); // Limpa o buffer
+                scanner.next();
             }
         }
         return modo;
     }
-    
-    // --- MÉTODOS DE CONTROLE DE JOGO ---
     
     private void trocarTurno() {
         this.turno = (this.turno + 1) % 2;

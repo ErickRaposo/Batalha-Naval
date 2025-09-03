@@ -56,7 +56,7 @@ public class Humano extends Player{
                     continue;
                 }
 
-                if (statusPosicao == 5 || statusPosicao == 7) {
+                if (statusPosicao == 3 || statusPosicao == 7) {
                     System.out.println("Já tem um barco nessa posição");
                     continue;
                 }

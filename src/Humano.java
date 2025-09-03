@@ -10,8 +10,8 @@ public class Humano extends Player{
         while (!atacou) {
             System.out.println("Em qual posição você deseja atacar " + inimigo.getNome() + "?");
 
-            int x = scanner.nextInt();
-            int y = scanner.nextInt();
+            int x = scanner.nextInt() - 1;
+            int y = scanner.nextInt() - 1;
 
             Posicao pos = new Posicao(x, y);
 

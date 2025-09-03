@@ -40,10 +40,12 @@ public class Humano extends Player{
             boolean colocou = false;
 
             while (!colocou) {
+                getTabuleiro().printarTabuleiro(true);
+
                 System.out.println(getNome() + ", em qual posição você deseja colocar um barco?");
 
-                int x = scanner.nextInt();
-                int y = scanner.nextInt();
+                int x = scanner.nextInt() - 1;
+                int y = scanner.nextInt() - 1;
 
                 Posicao pos = new Posicao(x, y);
 

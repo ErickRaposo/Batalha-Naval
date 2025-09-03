@@ -82,7 +82,7 @@ public class Tabuleiro {
 
         int soma=0;
 
-        if (pos.getX() >= 0 && pos.getX() < tamanho && pos.getY() >= 0 && pos.getY() < tamanho) {
+        if (pos.getX() > 0 && pos.getX() <= tamanho && pos.getY() > 0 && pos.getY() <= tamanho) {
             soma+=1;
         } else {
             return 0;

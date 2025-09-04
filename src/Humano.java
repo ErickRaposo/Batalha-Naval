@@ -4,8 +4,9 @@ public class Humano extends Player{
     private static final Scanner scanner = new Scanner(System.in);
 
     @Override
-    public void atacar(Player inimigo) {
+    public boolean atacar(Player inimigo) {
         boolean atacou = false;
+        boolean acertou = false;
 
         while (!atacou) {
             System.out.println("Em qual posição você deseja atacar " + inimigo.getNome() + "?");
@@ -27,9 +28,11 @@ public class Humano extends Player{
                 continue;
             }
 
-            inimigo.receberAtaque(pos);
+            acertou = inimigo.receberAtaque(pos);
             atacou = true;
         }
+
+        return acertou;
     }
 
     @Override

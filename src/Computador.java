@@ -2,7 +2,7 @@ import java.util.Random;
 
 public class Computador extends Player {
     @Override
-    public void atacar(Player inimigo) {
+    public boolean atacar(Player inimigo) {
         Random random = new Random();
 
         int x = random.nextInt(inimigo.getTabuleiro().getTamanho());
@@ -17,7 +17,9 @@ public class Computador extends Player {
         } catch (InterruptedException e) {
         }
 
-        inimigo.receberAtaque(pos);
+        boolean acertou = inimigo.receberAtaque(pos);
+
+        return acertou;
     }
 
     @Override

@@ -10,7 +10,7 @@ abstract class Player {
         return tabuleiro;
     }
 
-    public abstract void atacar(Player inimigo);
+    public abstract boolean atacar(Player inimigo);
 
     public boolean perdeu() {
         return tabuleiro.osBarcosEstaoAfundados();

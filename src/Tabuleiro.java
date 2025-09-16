@@ -114,7 +114,7 @@ public class Tabuleiro {
         System.out.println();
 
         for (int i = 0; i < tamanho; i++) {
-            System.out.printf("%2d ", (i+1));
+            System.out.printf("%2d ", (i + 1));
 
             for (int j = 0; j < tamanho; j++) {
                 Celula celula = grid[i][j];
@@ -128,7 +128,7 @@ public class Tabuleiro {
                 } else {
                     if (celula.estaVazio()) {
                         System.out.print(BLUE + " ~ " + RESET);
-                    } else if(revelarBarcos) {
+                    } else if (revelarBarcos) {
                         System.out.print(YELLOW + " B " + RESET);
                     } else {
                         System.out.print(BLUE + " ~ " + RESET);
@@ -137,14 +137,16 @@ public class Tabuleiro {
             }
             System.out.println();
         }
+    }
+        public void printarLegenda(boolean revelarBarcos) {
+            System.out.println();
+            System.out.println("Legenda:");
+            System.out.println(BLUE + "~" + RESET + " - Água");
+            System.out.println(CYAN + "O" + RESET + " - Tiro na água");
+            System.out.println(RED + "X" + RESET + " - Barco atingido");
 
-        System.out.println();
-        System.out.println("Legenda:");
-        System.out.println(BLUE + "~" + RESET + " - Água");
-        System.out.println(CYAN + "O" + RESET + " - Tiro na água");
-        System.out.println(RED + "X" + RESET + " - Barco atingido");
-        if (revelarBarcos) {
-            System.out.println(YELLOW + "B" + RESET + " - Barco");
+            if (revelarBarcos) {
+                System.out.println(YELLOW + "B" + RESET + " - Barco");
+            }
         }
     }
-}

@@ -3,12 +3,9 @@ import java.util.Random;
 public class Computador extends Player {
     @Override
     public boolean atacar(Player inimigo) {
+        boolean acertou = false;
+        boolean atacou = false;
         Random random = new Random();
-
-        int x = random.nextInt(inimigo.getTabuleiro().getTamanho());
-        int y = random.nextInt(inimigo.getTabuleiro().getTamanho());
-
-        Posicao pos = new Posicao(x, y);
 
         System.out.println("O computador está atacando!");
 
@@ -17,7 +14,18 @@ public class Computador extends Player {
         } catch (InterruptedException e) {
         }
 
-        boolean acertou = inimigo.receberAtaque(pos);
+        while (!atacou) {
+            int x = random.nextInt(inimigo.getTabuleiro().getTamanho());
+            int y = random.nextInt(inimigo.getTabuleiro().getTamanho());
+
+            Posicao pos = new Posicao(x, y);
+
+            if (inimigo.getTabuleiro().posicaoEValida(pos) < 5) {
+                acertou = inimigo.receberAtaque(pos);
+                atacou = true;
+            }
+        }
+
 
         return acertou;
     }

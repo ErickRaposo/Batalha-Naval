@@ -24,12 +24,12 @@ public class Game {
         int quantidadeBarcos = perguntarQuantidadeBarcos(tamanhoTabuleiro);
         int modoDeJogo = perguntarModoDeJogo();
 
-        if (modoDeJogo == 1) { // Jogador vs Computador
+        if (modoDeJogo == 1) {
             System.out.print("Digite o seu nome: ");
             String nomeHumano = scanner.next();
             jogadores[0] = new Humano(nomeHumano, tamanhoTabuleiro, quantidadeBarcos);
             jogadores[1] = new Computador("Computador", tamanhoTabuleiro, quantidadeBarcos);
-        } else { // Jogador vs Jogador
+        } else {
             System.out.print("Digite o nome do Jogador 1: ");
             String nomeJogador1 = scanner.next();
             jogadores[0] = new Humano(nomeJogador1, tamanhoTabuleiro, quantidadeBarcos);
@@ -44,9 +44,11 @@ public class Game {
         System.out.println("\n--- FASE DE POSICIONAMENTO ---");
         for (int i = 0; i < jogadores.length; i++) {
             Player jogadorAtual = jogadores[i];
-            System.out.println("\n" + jogadorAtual.getNome() + ", é a sua vez de posicionar os barcos.");
+            if (jogadorAtual instanceof Humano) {
+                System.out.println("\n" + jogadorAtual.getNome() + ", é a sua vez de posicionar os barcos.");
+            }
             
-            if (jogadores[(i + 1) % 2] instanceof Humano) {
+            if (jogadores[i] instanceof Humano && i==1) {
                 System.out.println(jogadores[(i + 1) % 2].getNome() + ", por favor, não olhe a tela!");
                 try { Thread.sleep(3000); } catch (InterruptedException e) {}
             }
@@ -62,9 +64,6 @@ public class Game {
         }
     }
 
-    /**
-     * MÉTODO ATUALIZADO com as novas regras de printagem.
-     */
     private void iniciarBatalha() {
         System.out.println("\n--- O JOGO COMEÇOU! ---");
         Player vencedor = null;
@@ -76,24 +75,25 @@ public class Game {
             System.out.println("\n-----------------------------------------");
             System.out.println("Turno de: " + atacante.getNome());
 
-            // Se o atacante for humano, mostra os tabuleiros para ele poder decidir.
             if (atacante instanceof Humano) {
-                // Em PvP, não revela os barcos. Em PvC, revela.
                 boolean revelarBarcos = !isModoPvP;
 
-                // NOVA ORDEM DE PRINTAGEM
-                // 1. Printa o tabuleiro do próprio jogador primeiro.
-                System.out.println("Seu tabuleiro (" + atacante.getNome() + "):");
-                atacante.getTabuleiro().printarTabuleiro(revelarBarcos);
-
-                // 2. Printa o tabuleiro inimigo em segundo.
                 System.out.println("Tabuleiro do inimigo (" + inimigo.getNome() + "):");
                 inimigo.getTabuleiro().printarTabuleiro(false);
                 inimigo.getTabuleiro().printarLegenda(revelarBarcos);
             }
-            
-            // O ataque acontece (para o computador, só vemos a mensagem do ataque dele).
-            atacante.atacar(inimigo);
+
+            boolean acertou = atacante.atacar(inimigo);
+
+            inimigo.getTabuleiro().printarTabuleiro(false);
+
+            if (acertou) {
+                System.out.println("Você acertou um barco de " + inimigo.getNome() + "! Agora resta " + inimigo.getTabuleiro().getBarcosRestantes() + " barcos.");
+            } else {
+                System.out.println("Não acertou nenhum barco! Ainda restam " + inimigo.getTabuleiro().getBarcosRestantes() + " barcos de " + inimigo.getNome() + ".");
+            }
+
+            try { Thread.sleep(3000); } catch (InterruptedException e) {}
 
             vencedor = checarVencedor();
             trocarTurno();

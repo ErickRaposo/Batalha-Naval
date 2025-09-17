@@ -57,7 +57,7 @@ public class Tabuleiro {
             return false;
         }
 
-        setBarcosRestantes(barcosRestantes--);
+        barcosRestantes--;
         return true;
     }
 

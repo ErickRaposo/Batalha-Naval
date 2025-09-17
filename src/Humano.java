@@ -20,11 +20,13 @@ public class Humano extends Player{
 
             if (statusPosicao == 0) {
                 System.out.println("A posição informada não está dentro do tabuleiro");
+                try { Thread.sleep(3000); } catch (InterruptedException e) {}
                 continue;
             }
 
             if (statusPosicao > 5) {
                 System.out.println("A posição informada já foi bombardeada");
+                try { Thread.sleep(3000); } catch (InterruptedException e) {}
                 continue;
             }
 
@@ -39,11 +41,12 @@ public class Humano extends Player{
     public void colocarBarcos() {
         int total = getTabuleiro().getTotalBarcos();
 
+        getTabuleiro().printarTabuleiro(true);
+
         for (int i=0; i<total; i++) {
             boolean colocou = false;
 
             while (!colocou) {
-                getTabuleiro().printarTabuleiro(true);
 
                 System.out.println(getNome() + ", em qual posição você deseja colocar um barco?");
 
@@ -56,17 +59,22 @@ public class Humano extends Player{
 
                 if (statusPosicao == 0) {
                     System.out.println("A posição informada não está dentro do tabuleiro");
+                    try { Thread.sleep(3000); } catch (InterruptedException e) {}
                     continue;
                 }
 
                 if (statusPosicao == 3 || statusPosicao == 7) {
                     System.out.println("Já tem um barco nessa posição");
+                    try { Thread.sleep(3000); } catch (InterruptedException e) {};
                     continue;
                 }
 
                 getTabuleiro().colocarBarco(pos);
                 colocou = true;
             }
+
+            System.out.println();
+            getTabuleiro().printarTabuleiro(true);
         }
     }
 
